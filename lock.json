@@ -1,0 +1,71 @@
+{
+    "memo": "11f81e505df0b1cef23eb3e512d23a3617b9c79e76751244ef681f9e28aefe9e",
+    "projects": [
+        {
+            "name": "github.com/labstack/echo",
+            "branch": "master",
+            "revision": "fad19bf4ea9727ef6d02e9e0a39b1a2a13a17a6a",
+            "packages": [
+                "."
+            ]
+        },
+        {
+            "name": "github.com/labstack/gommon",
+            "branch": "master",
+            "revision": "57409ada9da0f2afad6664c49502f8c50fbd8476",
+            "packages": [
+                "color",
+                "log"
+            ]
+        },
+        {
+            "name": "github.com/mattn/go-colorable",
+            "branch": "master",
+            "revision": "7dc3415be66d7cc68bf0182f35c8d31f8d2ad8a7",
+            "packages": [
+                "."
+            ]
+        },
+        {
+            "name": "github.com/mattn/go-isatty",
+            "version": "v0.0.3",
+            "revision": "0360b2af4f38e8d38c7fce2a9f4e702702d73a39",
+            "packages": [
+                "."
+            ]
+        },
+        {
+            "name": "github.com/valyala/bytebufferpool",
+            "branch": "master",
+            "revision": "e746df99fe4a3986f4d4f79e13c1e0117ce9c2f7",
+            "packages": [
+                "."
+            ]
+        },
+        {
+            "name": "github.com/valyala/fasttemplate",
+            "branch": "master",
+            "revision": "dcecefd839c4193db0d35b88ec65b4c12d360ab0",
+            "packages": [
+                "."
+            ]
+        },
+        {
+            "name": "golang.org/x/crypto",
+            "branch": "master",
+            "revision": "49796115aa4b964c318aad4f3084fdb41e9aa067",
+            "packages": [
+                "acme",
+                "acme/autocert"
+            ]
+        },
+        {
+            "name": "golang.org/x/sys",
+            "branch": "master",
+            "revision": "88d2dcc510266da9f7f8c7f34e1940716cab5f5c",
+            "packages": [
+                "unix"
+            ]
+        }
+    ]
+}
