@@ -42,13 +42,27 @@ func main() {
 		}
 	})
 
-	// Authentication routes
+	e.Static("/static/*", "static")
+
+	// V1 Routes
+	v1 := e.Group("/v1")
+	// V1 Authentication routes
+	v1.POST("/login", handlers.Login)
+	v1.POST("/logout", handlers.Logout)
+	// V1 Reminder Routes
+	v1Reminders := v1.Group("/reminder", middleware.JWT(signingKey))
+	v1Reminders.POST("", handlers.CreateReminder)
+	v1Reminders.GET("/:id", handlers.GetReminder)
+
+	// Latest Authentication routes
 	e.POST("/login", handlers.Login)
 	e.POST("/logout", handlers.Logout)
 
+	// Latest Reminder Routes
 	g := e.Group("/reminder")
 	g.Use(middleware.JWT(signingKey))
 	g.POST("", handlers.CreateReminder)
+	g.GET(":id", handlers.GetReminder)
 
 	// start the server, and log if it fails
 	e.Logger.Fatal(e.Start(":8080"))
