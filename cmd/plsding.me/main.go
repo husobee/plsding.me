@@ -2,18 +2,22 @@ package main
 
 import (
 	"database/sql"
-	"log"
 
 	"github.com/husobee/plsding.me/handlers"
+	"github.com/husobee/plsding.me/middlewares"
 	"github.com/husobee/plsding.me/models"
 	"github.com/labstack/echo"
 	"github.com/labstack/echo/middleware"
+	"github.com/labstack/gommon/log"
 	_ "github.com/mattn/go-sqlite3"
 )
 
 func main() {
 	// create a new echo instance
 	e := echo.New()
+	e.Logger.SetLevel(log.DEBUG)
+
+	e.Pre(middlewares.RequestIDMiddleware)
 
 	e.Use(middleware.Logger())
 	e.Use(middleware.Recover())
