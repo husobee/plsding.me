@@ -1,15 +1,11 @@
 package bindings
 
-import (
-	"github.com/labstack/echo"
-)
-
 type LoginRequest struct {
 	Username string `json:"username"`
 	Password string `json:"password"`
 }
 
-func (lr LoginRequest) Validate(c echo.Context) error {
+func (lr LoginRequest) Validate() error {
 	errs := new(RequestErrors)
 	if lr.Username == "" {
 		errs.Append(ErrUsernameEmpty)

@@ -3,6 +3,7 @@ package main
 import (
 	"database/sql"
 
+	"github.com/husobee/plsding.me/bindings"
 	"github.com/husobee/plsding.me/handlers"
 	"github.com/husobee/plsding.me/middlewares"
 	"github.com/husobee/plsding.me/models"
@@ -16,6 +17,7 @@ func main() {
 	// create a new echo instance
 	e := echo.New()
 	e.Logger.SetLevel(log.DEBUG)
+	e.Validator = new(bindings.Validator)
 
 	e.Pre(middlewares.RequestIDMiddleware)
 

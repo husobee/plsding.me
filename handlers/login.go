@@ -26,7 +26,7 @@ func Login(c echo.Context) error {
 		return c.JSON(http.StatusBadRequest, resp)
 	}
 
-	if err := lr.Validate(c); err != nil {
+	if err := c.Validate(lr); err != nil {
 		resp.Success = false
 		resp.Message = err.Error()
 		return c.JSON(http.StatusBadRequest, resp)
