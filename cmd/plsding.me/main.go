@@ -13,6 +13,11 @@ import (
 	_ "github.com/mattn/go-sqlite3"
 )
 
+var (
+	StopTestServer = make(chan bool)
+	TestRun        = false
+)
+
 func main() {
 	// create a new echo instance
 	e := echo.New()
@@ -24,8 +29,16 @@ func main() {
 	e.Use(middleware.Logger())
 	e.Use(middleware.Recover())
 
+	if TestRun {
+		e.POST("/stop-test-server", func(ctx echo.Context) error {
+			StopTestServer <- true
+			return nil
+		})
+	}
+
 	// Route / to handler function
 	e.GET("/health-check", handlers.HealthCheck)
+	e.GET("/error", handlers.Error)
 
 	// Authenticated Routes
 	var signingKey = []byte("superdupersecret!")
