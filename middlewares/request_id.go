@@ -11,7 +11,7 @@ const (
 
 func RequestIDMiddleware(next echo.HandlerFunc) echo.HandlerFunc {
 	return echo.HandlerFunc(func(c echo.Context) error {
-		c.Set(RequestIDContextKey, uuid.Must(uuid.NewV4()))
+		c.Set(RequestIDContextKey, uuid.NewV4())
 		return next(c)
 	})
 }

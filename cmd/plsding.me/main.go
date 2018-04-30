@@ -2,6 +2,7 @@ package main
 
 import (
 	"database/sql"
+	"html/template"
 
 	"github.com/husobee/plsding.me/bindings"
 	"github.com/husobee/plsding.me/handlers"
@@ -29,6 +30,13 @@ func main() {
 	e.Use(middleware.Logger())
 	e.Use(middleware.Recover())
 
+	t, err := template.New("reminders").Parse(handlers.RemindersTmpl)
+	if err != nil {
+		panic(err.Error())
+	}
+
+	e.Renderer = &handlers.CustomTemplate{t}
+
 	if TestRun {
 		e.POST("/stop-test-server", func(ctx echo.Context) error {
 			StopTestServer <- true
@@ -50,7 +58,7 @@ func main() {
 	})
 
 	// add database to context
-	var db, err = sql.Open("sqlite3", "./plsding.me.db")
+	db, err := sql.Open("sqlite3", "./plsding.me.db")
 	if err != nil {
 		log.Fatalf("error opening database: %v\n", err)
 	}
@@ -72,9 +80,11 @@ func main() {
 	v1Reminders := v1.Group("/reminder", middleware.JWT(signingKey))
 	v1Reminders.POST("", handlers.CreateReminder)
 	v1Reminders.GET("/:id", handlers.GetReminder)
+	v1Reminders.GET("/show-all", handlers.RenderReminders)
+	e.GET("/show-all-reverse", handlers.RenderRemindersWithReverse)
 
 	// Latest Authentication routes
-	e.POST("/login", handlers.Login)
+	e.POST("/login", handlers.Login).Name = "login"
 	e.POST("/logout", handlers.Logout)
 
 	// Latest Reminder Routes
